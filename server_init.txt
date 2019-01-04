@@ -1,0 +1,38 @@
+# 其他配置
+# https://www.kubernetes.org.cn/4004.html
+# 安全组开放 6443、2379、2380、10250
+# 本机执行
+ssh-copy-id root@ip
+
+# 服务器执行
+sudo apt-get update
+sudo apt-get install -y zsh git htop python-pip
+sudo chsh -s $(which zsh)
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+# 退出登录重新登
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+echo "export LC_ALL=en_US.UTF-8" >> ~/.zshrc
+
+# 个性化zsh
+ZSH_THEME="ys"
+POWERLEVEL9K_MODE='nerdfont-complete'
+
+plugins=(
+  git zsh-autosuggestions zsh-syntax-highlighting
+)
+# 以上非必须
+
+curl -fsSL get.docker.com -o /opt/get-docker.sh
+VERSION="17.03" CHANNEL="stable" sudo sh /opt/get-docker.sh --mirror Aliyun
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+sudo echo '{  "registry-mirrors": ["https://ven1e0cy.mirror.aliyuncs.com"]}' > /etc/docker/daemon.json
+sudo systemctl restart docker
+
+sudo wget https://github.com/bcicen/ctop/releases/download/v0.7.1/ctop-0.7.1-linux-amd64 -O /usr/local/bin/ctop
+sudo chmod +x /usr/local/bin/ctop
+
+pip install setuptools
+pip install docker-compose

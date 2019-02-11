@@ -23,6 +23,59 @@ plugins=(
   git zsh-autosuggestions zsh-syntax-highlighting
 )
 # 以上非必须
+ --------------
+# for Ubuntu
+# install fzf & bind default key-binding
+$ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+$ ~/.fzf/install
+$ source ~/.zshrc
+
+# install fd, url from https://github.com/sharkdp/fd/releases
+$ wget https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_7.2.0_amd64.deb
+$ sudo dpkg -i fd_7.2.0_amd64.deb
+
+# alter filefind to fd
+$ vim ~/.zshrc
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND="fd -t d . "
+
+$ source ~/.zshrc
+
+# Ctrl+R History command; Ctrl+R file catalog
+# if you want to DIY key of like 'Atl + C'
+# maybe line-num is not 64, but must nearby
+$ vim ~/.fzf/shell/key-bindings.zsh
+- 64 bindkey '\ec' fzf-cd-widget
++ 64 bindkey '^\' fzf-cd-widget
+
+$ source ~/.fzf/shell/key-bindings.zsh
+-----------
+# for Mac
+# install fd & fzf
+$ brew install fd fzf
+
+# bind default key-binding
+$ /usr/local/opt/fzf/install
+$ source ~/.zshrc
+
+# alter filefind to fd
+$ vim ~/.zshrc
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND="fd -t d . "
+
+$ source ~/.zshrc
+
+# Ctrl+R History command; Ctrl+R file catalog
+# if you want to DIY key of like 'Atl + C'
+# maybe line-num is not 66, but must nearby
+$ vim /usr/local/opt/fzf/shell/key-bindings.zsh
+- 66 bindkey '\ec' fzf-cd-widget
++ 66 bindkey '^\' fzf-cd-widget
+
+$ source /usr/local/opt/fzf/shell/key-bindings.zsh
+-----------
 
 curl -fsSL get.docker.com -o /opt/get-docker.sh
 VERSION="17.03" CHANNEL="stable" sudo sh /opt/get-docker.sh --mirror Aliyun
@@ -36,3 +89,15 @@ sudo chmod +x /usr/local/bin/ctop
 
 pip install setuptools
 pip install docker-compose
+
+# 写入~/.zshrc中，kubectl自动提示
+source <(kubectl completion zsh)
+
+
+(
+  set -x; cd "$(mktemp -d)" &&
+  curl -fsSLO "https://storage.googleapis.com/krew/v0.2.1/krew.{tar.gz,yaml}" &&
+  tar zxvf krew.tar.gz &&
+  ./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" install \
+    --manifest=krew.yaml --archive=krew.tar.gz
+)

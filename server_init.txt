@@ -18,7 +18,8 @@ echo "export LC_ALL=en_US.UTF-8" >> ~/.zshrc
 # 个性化zsh
 ZSH_THEME="ys"
 POWERLEVEL9K_MODE='nerdfont-complete'
-
+# history 时间
+HIST_STAMPS="mm/dd/yyyy"
 plugins=(
   git zsh-autosuggestions zsh-syntax-highlighting
 )

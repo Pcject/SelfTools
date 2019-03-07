@@ -18,7 +18,7 @@ services:
       - 6443:6443
       - 6500:6500/udp
     environment:
-      SS_CONFIG: "-s 0.0.0.0 -p 6443 -m chacha20 -k password --fast-open"
+      SS_CONFIG: "-s 0.0.0.0 -p 6443 -m chacha20 -k password"
       KCP_MODULE: "kcpserver"
       KCP_CONFIG: "-t 127.0.0.1:6443 -l :6500 -mode fast2"
       KCP_FLAG: "true"

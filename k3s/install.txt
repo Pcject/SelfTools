@@ -12,7 +12,7 @@ cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 
 # helm 要安装3.0  https://github.com/helm/helm/releases/tag/v3.0.0-alpha.2
 
-helm install traefik stable/traefik --namespace kube-system
+helm install traefik traefik --namespace kube-system
 # helm install traefik traefik-1.24.1.tgz --namespace kube-system
 
 # 安装节点监控

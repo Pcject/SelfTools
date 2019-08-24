@@ -1,0 +1,35 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  generation: 1
+  labels:
+    app: echo-header
+  name: echo-header
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo-header
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: echo-header
+    spec:
+      containers:
+        - image: 'brndnmtthws/nginx-echo-headers:latest'
+          imagePullPolicy: Always
+          name: echo-header
+          resources:
+            requests:
+              cpu: 25m
+              memory: 12Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

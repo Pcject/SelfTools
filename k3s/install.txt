@@ -1,0 +1,25 @@
+http://zxc0328.github.io/2019/06/04/k3s-setup/
+
+# 去k3s github的release上啦
+sudo mkdir -p /var/lib/rancher/k3s/agent/images/
+sudo cp ./k3s-airgap-images-$ARCH.tar /var/lib/rancher/k3s/agent/images/
+
+curl -sfL https://get.k3s.io -o install_k3s.sh
+sh install_k3s.sh --no-deploy traefik
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+
+# 将 kube config 下载到本地并修改地址
+
+# helm 要安装3.0  https://github.com/helm/helm/releases/tag/v3.0.0-alpha.2
+
+helm install traefik stable/traefik --namespace kube-system
+# helm install traefik traefik-1.24.1.tgz --namespace kube-system
+
+# 安装节点监控
+kubectl apply -f node_exporter.yaml
+
+# 安装pod监控
+kubectl apply -f metric-server
+
+# 安装迷你dashboard https://github.com/herbrandson/k8dash
+kubectl apply -f https://raw.githubusercontent.com/herbrandson/k8dash/master/kubernetes-k8dash.yaml

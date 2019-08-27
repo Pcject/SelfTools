@@ -8,9 +8,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: nginx
-          servicePort: 80
-      - path: /test
-        backend:
           serviceName: echo-header
           servicePort: 8080

@@ -1,13 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nginx
+  name: k8dash
+  namespace: kube-system
 spec:
   rules:
     - host: test-k3s.gllue.net
       http:
         paths:
           - backend:
-              serviceName: nginx
+              serviceName: k8dash
               servicePort: 80
             path: /

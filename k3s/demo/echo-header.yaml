@@ -10,11 +10,6 @@ spec:
   selector:
     matchLabels:
       app: echo-header
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -24,12 +19,4 @@ spec:
         - image: 'brndnmtthws/nginx-echo-headers:latest'
           imagePullPolicy: Always
           name: echo-header
-          resources:
-            requests:
-              cpu: 25m
-              memory: 12Mi
-      dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30

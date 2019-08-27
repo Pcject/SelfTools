@@ -1,0 +1,13 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  chart: https://%{KUBERNETES_API}%/static/charts/traefik-1.76.1.tgz
+  set:
+    kubernetes.ingressEndpoint.useDefaultPublishedService: "true"
+    rbac.enabled: "true"
+    ssl.enabled: "true"
+    externalTrafficPolicy: "Local"
+    accessLogs.enabled: "true"
